@@ -308,10 +308,11 @@ func (s *Session) Connect(ctx context.Context) error {
 
 	logger.Infof("jitsi: joining MUC %s/%s as %s …", s.host, s.room, s.name)
 	jSess, err := j.JoinMUC(ctx, j.Config{
-		Host:  s.host,
-		Room:  s.room,
-		Nick:  s.name,
-		Debug: logger.IsVerbose(),
+		Host:     s.host,
+		Room:     s.room,
+		Nick:     s.name,
+		Debug:    logger.IsVerbose(),
+		Insecure: true,
 	})
 	if err != nil {
 		return fmt.Errorf("jitsi join muc: %w", err)
@@ -1549,10 +1550,11 @@ func (s *Session) reconnect(ctx context.Context) error {
 	logger.Infof("jitsi: rejoin %s/%s (non-blocking) ...", s.host, s.room)
 	joinCtx, joinCancel := context.WithTimeout(ctx, reconnectJoinTimeout)
 	jSess, err := j.JoinMUC(joinCtx, j.Config{
-		Host:  s.host,
-		Room:  s.room,
-		Nick:  s.name,
-		Debug: logger.IsVerbose(),
+		Host:     s.host,
+		Room:     s.room,
+		Nick:     s.name,
+		Debug:    logger.IsVerbose(),
+		Insecure: true,
 	})
 	joinCancel()
 	if err != nil {
@@ -1676,10 +1678,11 @@ func (s *Session) reconnectFull(ctx context.Context) error {
 	// If this fails, it's a real connectivity problem.
 	joinCtx, joinCancel := context.WithTimeout(ctx, reconnectJoinTimeout)
 	jSess, err := j.JoinMUC(joinCtx, j.Config{
-		Host:  s.host,
-		Room:  s.room,
-		Nick:  s.name,
-		Debug: logger.IsVerbose(),
+		Host:     s.host,
+		Room:     s.room,
+		Nick:     s.name,
+		Debug:    logger.IsVerbose(),
+		Insecure: true,
 	})
 	joinCancel()
 	if err != nil {

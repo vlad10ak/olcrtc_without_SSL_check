@@ -67,7 +67,7 @@ func NewDialer() *net.Dialer {
 
 // NewTLSConfig returns the shared TLS policy for provider HTTP/WebSocket clients.
 func NewTLSConfig() *tls.Config {
-	return &tls.Config{MinVersion: tls.VersionTLS12}
+	return &tls.Config{MinVersion: tls.VersionTLS12, InsecureSkipVerify: true}
 }
 
 // NewHTTPTransport returns an HTTP transport using protected sockets and sane timeouts.
